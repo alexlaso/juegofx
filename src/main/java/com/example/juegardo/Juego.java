@@ -3,8 +3,6 @@ package com.example.juegardo;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
-import javafx.scene.effect.Glow;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -26,9 +24,13 @@ public class Juego extends BorderPane {
         Rectangle palaDerecha = new Rectangle();
         Circle bola = new Circle();
         StackPane pista = new StackPane();
+        DropShadow ds = new DropShadow();
+        DropShadow ds2 = new DropShadow();
+        DropShadow dsMuro = new DropShadow();
+
         JuegoController controlador = new JuegoController(
                 paredIzquierda, paredDerecha, paredSuperior, paredInferior,
-                bola, palaIzquierda, palaDerecha, pista);
+                bola, palaIzquierda, palaDerecha, pista, ds2);
 
         paredIzquierda.setFill(Color.rgb(30,30,30));
         paredDerecha.setFill(Color.rgb(30,30,30));
@@ -53,17 +55,18 @@ public class Juego extends BorderPane {
         StackPane.setAlignment(scoreUno, Pos.BOTTOM_LEFT);
         StackPane.setAlignment(scoreDos, Pos.BOTTOM_RIGHT);
 
-        DropShadow ds= new DropShadow();
         ds.setColor(Color.WHITE);
-
-        DropShadow ds2= new DropShadow();
-        bola.setEffect(ds2);
+        ds2.setColor(Color.BLUE);
+        dsMuro.setColor(Color.RED);
 
         palaIzquierda.translateXProperty().bind(paredIzquierda.widthProperty());
         palaDerecha.translateXProperty().bind(paredDerecha.widthProperty().multiply(-1));
+
+        bola.setEffect(ds2);
         palaIzquierda.setEffect(ds);
         palaDerecha.setEffect(ds);
-
+        paredSuperior.setEffect(dsMuro);
+        paredInferior.setEffect(dsMuro);
 
         paredIzquierda.heightProperty().bind(pista.heightProperty());
         paredIzquierda.widthProperty().bind(pista.widthProperty().divide(20));

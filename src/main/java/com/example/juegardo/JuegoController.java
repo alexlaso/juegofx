@@ -4,6 +4,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -24,10 +25,12 @@ public class JuegoController {
     private double movBolaY, movBolaX,
     movPalaIzq, movPalaDer;
     private Timeline animacion;
+    private Color ultimoColor;
+    private DropShadow ds2;
 
     public JuegoController(
             Rectangle paredIzquierda, Rectangle paredDerecha, Rectangle paredSuperior, Rectangle paredInferior,
-            Circle bola, Rectangle palaIzquierda, Rectangle palaDerecha, StackPane pista) {
+            Circle bola, Rectangle palaIzquierda, Rectangle palaDerecha, StackPane pista, DropShadow ds2) {
         this.paredIzquierda = paredIzquierda;
         this.paredDerecha = paredDerecha;
         this.paredSuperior = paredSuperior;
@@ -36,6 +39,7 @@ public class JuegoController {
         this.palaIzquierda=palaIzquierda;
         this.palaDerecha=palaDerecha;
         this.pista=pista;
+        this.ds2=ds2;
         this.movBolaY = 1.5;
         this.movBolaX = 1.5;
 
@@ -66,6 +70,9 @@ public class JuegoController {
         | bola.getBoundsInParent().intersects(paredInferior.getBoundsInParent())){
         movBolaY=-movBolaY*1.1;
             cambiaColor();
+            bola.setFill(ultimoColor);
+            ds2.setColor(ultimoColor);
+            bola.setEffect(ds2);
     }}
 
     private void colisionLados(){
@@ -89,6 +96,9 @@ public class JuegoController {
                 movBolaX=-movBolaX;
             }
             cambiaColor();
+            bola.setFill(ultimoColor);
+            ds2.setColor(ultimoColor);
+            bola.setEffect(ds2);
         }
     }
 
@@ -136,7 +146,7 @@ public class JuegoController {
     }
 
     private void cambiaColor(){
-        bola.setFill(Color.rgb((int)Math.floor(Math.random()*256),
+        ultimoColor=(Color.rgb((int)Math.floor(Math.random()*256),
                 (int)Math.floor(Math.random()*256),
                 (int)Math.floor(Math.random()*256)));
     }
