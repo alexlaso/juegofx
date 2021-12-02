@@ -1,5 +1,6 @@
 package com.example.juegardo;
 
+import javafx.css.Size;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -10,12 +11,16 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class Juego extends BorderPane {
 
     public Juego(){
-        Label scoreUno = new Label();
-        Label scoreDos = new Label();
+        Text scoreUno = new Text();
+        Text scoreDos = new Text();
+        Text titulo = new Text();
+        Text ganador = new Text();
         Rectangle paredIzquierda = new Rectangle();
         Rectangle paredDerecha = new Rectangle();
         Rectangle paredSuperior = new Rectangle();
@@ -30,7 +35,7 @@ public class Juego extends BorderPane {
 
         JuegoController controlador = new JuegoController(
                 paredIzquierda, paredDerecha, paredSuperior, paredInferior,
-                bola, palaIzquierda, palaDerecha, pista, ds2);
+                bola, palaIzquierda, palaDerecha, pista, ds2, scoreUno, scoreDos, ganador);
 
         paredIzquierda.setFill(Color.rgb(30,30,30));
         paredDerecha.setFill(Color.rgb(30,30,30));
@@ -44,7 +49,7 @@ public class Juego extends BorderPane {
 
         pista.getChildren().addAll(
                 paredIzquierda, paredDerecha, paredSuperior, paredInferior, bola, palaIzquierda, palaDerecha,
-                scoreUno, scoreDos);
+                scoreUno, scoreDos, titulo, ganador);
         StackPane.setAlignment(paredIzquierda, Pos.CENTER_LEFT);
         StackPane.setAlignment(paredDerecha, Pos.CENTER_RIGHT);
         StackPane.setAlignment(paredSuperior, Pos.TOP_CENTER);
@@ -54,6 +59,8 @@ public class Juego extends BorderPane {
         StackPane.setAlignment(palaDerecha, Pos.CENTER_RIGHT);
         StackPane.setAlignment(scoreUno, Pos.BOTTOM_LEFT);
         StackPane.setAlignment(scoreDos, Pos.BOTTOM_RIGHT);
+        StackPane.setAlignment(titulo, Pos.TOP_CENTER);
+        StackPane.setAlignment(ganador, Pos.CENTER);
 
         ds.setColor(Color.WHITE);
         ds2.setColor(Color.BLUE);
@@ -61,6 +68,8 @@ public class Juego extends BorderPane {
 
         palaIzquierda.translateXProperty().bind(paredIzquierda.widthProperty());
         palaDerecha.translateXProperty().bind(paredDerecha.widthProperty().multiply(-1));
+        paredSuperior.translateYProperty().bind(paredSuperior.heightProperty());
+        paredInferior.translateYProperty().bind(paredInferior.heightProperty().multiply(-1));
 
         bola.setEffect(ds2);
         palaIzquierda.setEffect(ds);
@@ -88,15 +97,23 @@ public class Juego extends BorderPane {
         palaDerecha.heightProperty().bind(paredIzquierda.widthProperty().multiply(3.25));
         palaDerecha.widthProperty().bind(paredIzquierda.widthProperty().divide(1.75));
 
-       // scoreUno.widthProperty().bind(paredInferior.widthProperty().divide(5));
-      //  scoreUno.heightProperty().bind(paredInferior.heightProperty());
-        scoreUno.setText("nwjefjwernfjwerngwoi");
-        scoreUno.setTextFill(Color.WHITE);
+       //
+        scoreUno.setText("Jugador 1: ");
+        scoreUno.setFill(Color.WHITE);
+        scoreUno.setFont(new Font("Bauhaus 93", 20));
+        scoreUno.translateXProperty().bind(paredIzquierda.widthProperty());
 
-       // scoreDos.widthProperty().bind(paredInferior.widthProperty().divide(5));
-       // scoreDos.heightProperty().bind(paredInferior.heightProperty());
-        scoreDos.setText("Hola K Ase");
-        scoreDos.setTextFill(Color.WHITE);
+        scoreDos.setText("Jugador 2:");
+        scoreDos.setFill(Color.WHITE);
+        scoreDos.setFont(new Font("Bauhaus 93", 20));
+        scoreDos.translateXProperty().bind(paredDerecha.widthProperty().multiply(-1));
+
+        titulo.setText("PONG");
+        titulo.setFill(Color.WHITE);
+        titulo.setFont(new Font("Bauhaus 93", 20));
+
+        ganador.setFill(Color.WHITE);
+        ganador.setFont(new Font("Bauhaus93", 50));
 
         pista.setBackground(new Background(new BackgroundFill(Color.rgb(30,30,30),
                 null, null)));
