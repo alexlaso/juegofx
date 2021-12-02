@@ -113,7 +113,7 @@ public class Juego extends BorderPane {
         titulo.setFont(new Font("Bauhaus 93", 20));
 
         ganador.setFill(Color.WHITE);
-        ganador.setFont(new Font("Bauhaus93", 50));
+        ganador.setFont(new Font("Bauhaus93", 40));
 
         pista.setBackground(new Background(new BackgroundFill(Color.rgb(30,30,30),
                 null, null)));

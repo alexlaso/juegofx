@@ -55,7 +55,6 @@ public class JuegoController {
 
         inicializarJuego();
         inicializarControles();
-        puntuacionesFinales();
     }
 
     private void inicializarJuego(){
@@ -88,11 +87,13 @@ public class JuegoController {
             resetearPosicion();
             puntuacionUno.setValue(puntuacionUno.getValue()+1);
             scoreUno.textProperty().bind(puntuacionUno.asString("Jugador 1: %d"));
-    }if(bola.getBoundsInParent().intersects(paredIzquierda.getBoundsInParent())){
+        }
+        if(bola.getBoundsInParent().intersects(paredIzquierda.getBoundsInParent())){
             resetearPosicion();
             puntuacionDos.setValue(puntuacionDos.getValue()+1);
             scoreDos.textProperty().bind(puntuacionDos.asString("Jugador 2: %d"));
         }
+        puntuacionesFinales();
     }
 
     private void colisionPalas(){
@@ -197,11 +198,11 @@ public class JuegoController {
     }
 
     private void puntuacionesFinales(){
-        if(puntuacionUno.equals(7)){
+        if(puntuacionUno.get() == 7){
             animacion.stop();
             ganador.setText("HA GANADO EL JUGADOR 1");
         }
-        if(puntuacionDos.equals(7)){
+        if(puntuacionDos.get() == 7){
             animacion.stop();
             ganador.setText("HA GANADO EL JUGADOR 2");
         }
